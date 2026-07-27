@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://sfif1y621wh4"]
+
+[ext_resource type="Script" uid="uid://bb2xqng8dqtys" path="res://scripts/player_1.gd" id="1_v7tvf"]
+[ext_resource type="PackedScene" uid="uid://ciurc4lgbm8pw" path="res://scenes/gun.tscn" id="2_povjg"]
+[ext_resource type="Texture2D" uid="uid://brd5vai851ac2" path="res://assets/images/PlayerIdle1.png" id="3_hkoe6"]
+[ext_resource type="Shader" uid="uid://cj1mrsx0bgy6t" path="res://assets/shaders/player_pallette_swap.gdshader" id="3_ne6jw"]
+[ext_resource type="Texture2D" uid="uid://cs33suh3dlgnj" path="res://assets/shaders/Player_1_pallete.png" id="4_b2c7a"]
+[ext_resource type="PackedScene" uid="uid://dqsktirj628jq" path="res://components/movement_component.tscn" id="4_ne6jw"]
+[ext_resource type="PackedScene" uid="uid://b6gawythrf3yn" path="res://components/health_component.tscn" id="5_b2c7a"]
+[ext_resource type="Texture2D" uid="uid://b634mv2tojrro" path="res://assets/shaders/Player_2_pallette.png" id="5_ne6jw"]
+[ext_resource type="PackedScene" uid="uid://1w6lm2bbcp80" path="res://components/hurtbox_component.tscn" id="6_x4ukj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p46gs"]
+shader = ExtResource("3_ne6jw")
+shader_parameter/palette_source = ExtResource("4_b2c7a")
+shader_parameter/palette_target = ExtResource("5_ne6jw")
+shader_parameter/palette_size = 26
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ti4iy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_hkoe6")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ti4iy"]
+radius = 5.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iamax"]
+radius = 5.0
+
+[node name="Player 2" type="CharacterBody2D" unique_id=1667510459]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_v7tvf")
+player_id = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=664903887]
+texture_filter = 1
+material = SubResource("ShaderMaterial_p46gs")
+sprite_frames = SubResource("SpriteFrames_ti4iy")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=100954632]
+shape = SubResource("CapsuleShape2D_ti4iy")
+
+[node name="MovementComponent" parent="." unique_id=2051930022 node_paths=PackedStringArray("parent") instance=ExtResource("4_ne6jw")]
+parent = NodePath("..")
+
+[node name="HealthComponent" parent="." unique_id=1501770791 node_paths=PackedStringArray("parent") instance=ExtResource("5_b2c7a")]
+parent = NodePath("..")
+
+[node name="HurtboxComponent" parent="." unique_id=655912524 node_paths=PackedStringArray("health_component") instance=ExtResource("6_x4ukj")]
+collision_layer = 4
+collision_mask = 3
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent" unique_id=53845836]
+shape = SubResource("CapsuleShape2D_iamax")
+
+[node name="Gun" parent="." unique_id=1638748071 instance=ExtResource("2_povjg")]
+position = Vector2(11, 0)

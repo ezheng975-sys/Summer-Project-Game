@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://ciurc4lgbm8pw"]
+
+[ext_resource type="Script" uid="uid://dfqxmtf2ey34g" path="res://scripts/gun.gd" id="1_og67c"]
+[ext_resource type="Texture2D" uid="uid://boojb74y8fi1d" path="res://assets/images/revolver_idle.png" id="1_x77fm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ti4iy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_x77fm")
+}],
+"loop": 1,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[node name="Gun" type="Node2D" unique_id=1638748071]
+script = ExtResource("1_og67c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1569132906]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ti4iy")
+animation = &"Idle"
+
+[node name="MuzzlePoint" type="Marker2D" parent="." unique_id=793985592]
+position = Vector2(10, -3)

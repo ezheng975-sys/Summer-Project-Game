@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://be3dstxsjmwcr"]
+
+[ext_resource type="Script" uid="uid://dowxhc3vwif1d" path="res://scripts/bullet.gd" id="1_l5glv"]
+[ext_resource type="Texture2D" uid="uid://tqi77rdqsv8i" path="res://assets/images/revolver bullet.png" id="1_y25gk"]
+[ext_resource type="PackedScene" uid="uid://610ew1dxaawk" path="res://components/hitbox_component.tscn" id="2_l5glv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ti4iy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y25gk")
+}],
+"loop": 1,
+"name": &"Revolver",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ti4iy"]
+size = Vector2(8, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iamax"]
+size = Vector2(8, 4)
+
+[node name="Bullet" type="Area2D" unique_id=1522777648]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_l5glv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1718773439 groups=["bullets"]]
+z_index = -1
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_ti4iy")
+animation = &"Revolver"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1792535498]
+shape = SubResource("RectangleShape2D_ti4iy")
+
+[node name="HitboxComponent" parent="." unique_id=489090950 instance=ExtResource("2_l5glv")]
+collision_layer = 13
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=59979623]
+shape = SubResource("RectangleShape2D_iamax")
